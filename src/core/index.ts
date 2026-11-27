@@ -12,5 +12,11 @@ export {
   type FaceApiEngineOptions,
   type FaceApiLandmarkModel,
 } from "../engines/FaceApiEngine";
+export {
+  MediaPipeEngine,
+  MEDIAPIPE_MODEL_FILES,
+  type MediaPipeDelegate,
+  type MediaPipeEngineOptions,
+} from "../engines/MediaPipeEngine";
 export * from "../pad";
 export * from "../camera";

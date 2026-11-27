@@ -9,6 +9,7 @@ import type {
   FacePoint,
 } from "../types/face.types";
 import { FaceEngineError, type FaceEngine } from "./FaceEngine";
+import { getImageSize } from "./frame";
 
 type FaceApiModule = typeof FaceApi;
 
@@ -43,7 +44,6 @@ export const FACE_API_MODEL_FILES = {
 } as const;
 
 const ENGINE_NAME = "face-api";
-const HAVE_CURRENT_DATA = 2;
 
 interface LoadedNets {
   readonly faceapi: FaceApiModule;
@@ -218,25 +218,6 @@ function disposeNets(nets: LoadedNets): void {
   for (const net of [nets.detector, nets.landmarkNet]) {
     if (net?.isLoaded) net.dispose();
   }
-}
-
-/** Frame size in pixels, or `null` when the frame has no pixels yet (e.g. video still loading). */
-function getImageSize(input: FaceEngineInput): FaceImageSize | null {
-  let width: number;
-  let height: number;
-  if (typeof HTMLVideoElement !== "undefined" && input instanceof HTMLVideoElement) {
-    if (input.readyState < HAVE_CURRENT_DATA) return null;
-    width = input.videoWidth;
-    height = input.videoHeight;
-  } else if (typeof HTMLImageElement !== "undefined" && input instanceof HTMLImageElement) {
-    if (!input.complete) return null;
-    width = input.naturalWidth;
-    height = input.naturalHeight;
-  } else {
-    width = input.width;
-    height = input.height;
-  }
-  return width > 0 && height > 0 ? { width, height } : null;
 }
 
 function clamp01(value: number): number {

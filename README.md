@@ -38,9 +38,27 @@ engine.dispose();
 
 `FaceApiEngine` uses face-api.js 0.22.2 (TinyFaceDetector and the 68-point landmark net). It imports face-api.js only when `load()` runs. Errors are `FaceEngineError`s with a `code` of `MODEL_LOAD_FAILED`, `NOT_LOADED` or `DETECTION_FAILED`.
 
+`MediaPipeEngine` is the complementary engine. It uses MediaPipe Tasks Vision `FaceLandmarker` in `VIDEO` mode and adds blendshapes (`eyeBlinkLeft`, `jawOpen`, `mouthSmileRight`, …) and head pose (`yaw`, `pitch` and `roll` in degrees) to each result. Its 478-point mesh is mapped to the same 68-point regions, so both engines feed the analysis the same way.
+
+```ts
+import { MediaPipeEngine } from "facial-check/core";
+
+const engine = new MediaPipeEngine({
+  wasmBaseUrl: "/mediapipe/wasm", // default
+  modelAssetPath: "/models/face_landmarker.task", // default
+  maxFps: 30, // video frames processed per second (default 30)
+});
+await engine.load();
+const [face] = await engine.detect(videoElement);
+face?.blendshapes?.eyeBlinkLeft; // 0..1
+face?.pose?.yaw; // > 0 when the subject turns to their own right
+```
+
+For a `<video>`, `detect()` never runs the model twice on the same frame (`currentTime` unchanged) or faster than `maxFps`. In both cases it returns the last result. `<img>` and `<canvas>` inputs always run the model. The engine uses the GPU delegate and falls back to CPU when the GPU delegate can't be created. FaceLandmarker has no per-face confidence, so every returned face has `score: 1`. Faces below `minFacePresenceConfidence` are not returned.
+
 ### Model files
 
-The model weights are not part of the npm package. Your app serves them, by default from `/models`. See [`models/README.md`](./models/README.md) for the list of files, where to get them, and how to serve them.
+The model weights (and MediaPipe's wasm runtime) are not part of the npm package. Your app serves them, by default from `/models` (and `/mediapipe/wasm`). See [`models/README.md`](./models/README.md) for the list of files, where to get them, and how to serve them.
 
 ## Privacy
 
