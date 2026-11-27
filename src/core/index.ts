@@ -14,3 +14,4 @@ export {
 } from "../engines/FaceApiEngine";
 export * from "../pad";
 export * from "../camera";
+export * from "../analysis";

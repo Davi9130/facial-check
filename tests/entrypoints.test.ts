@@ -52,3 +52,15 @@ describe("camera exports", () => {
     expect(mod).toHaveProperty("CameraError");
   });
 });
+
+describe("analysis exports", () => {
+  it.each([
+    ["facial-check", () => import("../src/index")],
+    ["facial-check/core", () => import("../src/core/index")],
+  ])("%s exposes FaceAnalyzer and its analyzers", async (_name, load) => {
+    const mod = await load();
+    for (const name of ["FaceAnalyzer", "EyeAnalyzer", "MouthAnalyzer", "HeadPoseAnalyzer", "computeEyeAspectRatio", "computeMouthAspectRatio", "estimateHeadPoseFromLandmarks"]) {
+      expect(mod).toHaveProperty(name);
+    }
+  });
+});
