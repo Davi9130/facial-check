@@ -41,3 +41,14 @@ describe("facial-check/core engine exports", () => {
     expect(core.FACE_API_MODEL_FILES.detector).toContain("tiny_face_detector_model-weights_manifest.json");
   });
 });
+
+describe("camera exports", () => {
+  it.each([
+    ["facial-check", () => import("../src/index")],
+    ["facial-check/core", () => import("../src/core/index")],
+  ])("%s exposes CameraManager and CameraError", async (_name, load) => {
+    const mod = await load();
+    expect(mod).toHaveProperty("CameraManager");
+    expect(mod).toHaveProperty("CameraError");
+  });
+});
