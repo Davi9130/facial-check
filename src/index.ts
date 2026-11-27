@@ -5,3 +5,4 @@
  * Symbols are added by the tasks that implement them.
  */
 export {};
+export * from "./pad";
