@@ -23,6 +23,25 @@ React and React DOM are **peer dependencies**. They are optional and only needed
 
 Each entry point is published as ESM (`.js` + `.d.ts`) and CommonJS (`.cjs` + `.d.cts`). Only these subpaths and `facial-check/package.json` can be imported. Internal modules are not part of the public API.
 
+## Face engines
+
+`facial-check/core` exposes the `FaceEngine` contract. An engine turns a `<video>`, `<img>` or `<canvas>` frame into `FaceDetectionResult`s. Each result has a normalized bounding box, a score, landmarks grouped by region (eyes, eyebrows, nose, mouth, jawline), and optional blendshapes and head pose. Coordinates go from 0 to 1 relative to the frame, and left/right always mean the subject's own sides. Engines don't depend on React or on the camera module.
+
+```ts
+import { FaceApiEngine } from "facial-check/core";
+
+const engine = new FaceApiEngine({ modelBaseUrl: "/models", inputSize: 224, scoreThreshold: 0.5 });
+await engine.load();
+const [face] = await engine.detect(videoElement); // [] when no face is found or the video isn't ready
+engine.dispose();
+```
+
+`FaceApiEngine` uses face-api.js 0.22.2 (TinyFaceDetector and the 68-point landmark net). It imports face-api.js only when `load()` runs. Errors are `FaceEngineError`s with a `code` of `MODEL_LOAD_FAILED`, `NOT_LOADED` or `DETECTION_FAILED`.
+
+### Model files
+
+The model weights are not part of the npm package. Your app serves them, by default from `/models`. See [`models/README.md`](./models/README.md) for the list of files, where to get them, and how to serve them.
+
 ## Privacy
 
 All processing runs locally in the browser. By default, the SDK does not send images or video anywhere, does not store them, and does not log biometric data. Detecting facial movements does **not** prove that the user is a real person. Presence challenges are kept separate from Presentation Attack Detection (PAD).
