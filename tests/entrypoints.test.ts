@@ -70,3 +70,12 @@ describe("analysis exports", () => {
     }
   });
 });
+
+describe("detector exports", () => {
+  it("facial-check/detectors exposes the movement detectors", async () => {
+    const mod = await import("../src/detectors/index");
+    for (const name of ["BlinkDetector", "MouthDetector", "SmileDetector", "HeadPoseDetector", "HEAD_MOVEMENTS", "ExponentialMovingAverage"]) {
+      expect(mod).toHaveProperty(name);
+    }
+  });
+});
