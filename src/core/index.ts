@@ -23,3 +23,7 @@ export * from "../camera";
 export * from "../analysis";
 export { EventEmitter, type Listener } from "./EventEmitter";
 export * from "../challenges";
+export { FacialCheck } from "./FacialCheck";
+export { FacialSession, type FacialSessionDeps } from "./FacialSession";
+export { FacialCheckError, isFacialCheckError } from "./FacialCheckError";
+export { FACIAL_CHECK_DEFAULTS, resolveFacialCheckConfig, type ResolvedFacialCheckConfig } from "./FacialCheckConfig";

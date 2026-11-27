@@ -7,3 +7,4 @@ export type * from "./camera.types";
 export type * from "./analysis.types";
 export type * from "./detector.types";
 export type * from "./challenge.types";
+export type * from "./session.types";
