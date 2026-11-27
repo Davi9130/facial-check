@@ -12,4 +12,5 @@ export {
   type FaceApiEngineOptions,
   type FaceApiLandmarkModel,
 } from "../engines/FaceApiEngine";
+export * from "../pad";
 export * from "../camera";
