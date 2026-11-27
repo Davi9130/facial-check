@@ -79,3 +79,20 @@ describe("detector exports", () => {
     }
   });
 });
+
+describe("challenge exports", () => {
+  it.each([
+    ["facial-check", () => import("../src/index")],
+    ["facial-check/core", () => import("../src/core/index")],
+  ])("%s exposes ChallengeManager and the catalog", async (_name, load) => {
+    const mod = await load();
+    expect(mod).toHaveProperty("ChallengeManager");
+    expect(mod).toHaveProperty("ChallengeRandomizer");
+    expect(mod).toHaveProperty("CHALLENGE_TYPES");
+  });
+
+  it("facial-check/core exposes EventEmitter", async () => {
+    const core = await import("../src/core/index");
+    expect(core.EventEmitter).toBeTypeOf("function");
+  });
+});

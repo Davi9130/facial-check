@@ -1,0 +1,10 @@
+export { ChallengeManager, type ChallengeStartOptions } from "./ChallengeManager";
+export { ChallengeRandomizer, type ChallengeRandomizerOptions } from "./ChallengeRandomizer";
+export { CHALLENGES, CHALLENGE_TYPES, CHALLENGE_FACTORIES, isChallengeType } from "./catalog";
+export { ScalarDetectorChallenge, HeadMovementChallenge } from "./DetectorChallenge";
+export { BlinkChallenge } from "./BlinkChallenge";
+export { OpenMouthChallenge } from "./OpenMouthChallenge";
+export { SmileChallenge } from "./SmileChallenge";
+export { TurnLeftChallenge } from "./TurnLeftChallenge";
+export { TurnRightChallenge } from "./TurnRightChallenge";
+export { HeadTiltChallenge } from "./HeadTiltChallenge";

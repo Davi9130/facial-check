@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `models/README.md`: which model files to serve and how.
 - `MediaPipeEngine`: MediaPipe Tasks Vision `FaceLandmarker` engine (`VIDEO` mode) with blendshapes, head pose (yaw/pitch/roll from the transformation matrix), the mesh mapped to the 68-point regions, configurable wasm/model paths, a `maxFps` limit, no reprocessing of the same video frame, and a GPU→CPU fallback. Exported from `facial-check/core` with `MEDIAPIPE_MODEL_FILES`.
 - Movement detectors in `facial-check/detectors`: `BlinkDetector` (EAR or eye openness, open → closed → open within `maxClosedMs`), `MouthDetector` (MAR or `jawOpen`), `SmileDetector` and `HeadPoseDetector` (turn, look and tilt in the subject's own directions). Each one smooths the signal (EMA), uses hysteresis thresholds, needs the face at rest first and at least 2 frames past the threshold, and gives every event a 0–1 confidence. They accept a `FaceAnalysis` or a raw `FaceDetectionResult`.
+- Challenge engine (`ChallengeManager`, exported from `facial-check` and `facial-check/core`): catalog `blink`, `open-mouth`, `smile`, `turn-left`, `turn-right`, `head-tilt`, each validated by its movement detector; random selection per session (`ChallengeRandomizer`, injectable RNG, never the same sequence twice in a row), per-attempt timeout, face-lost limit and retries, per-challenge state (`pending` → `active` → `completed`/`failed`/`timeout`), progress, and `challengeStarted` / `challengeCompleted` / `challengeFailed` / `progress` / `finished` events tagged with the `sessionId`. Frame-driven, with no timers, and independent of PAD and React.
+- `EventEmitter`: small typed event emitter in `facial-check/core`.
 
 ## [0.1.0]
 
