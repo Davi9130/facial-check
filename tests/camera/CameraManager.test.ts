@@ -345,7 +345,7 @@ describe("captureFrame", () => {
     const { manager } = await activeManager();
     const getContext = vi
       .spyOn(HTMLCanvasElement.prototype, "getContext")
-      .mockReturnValue(fakeContext() as unknown as CanvasRenderingContext2D);
+      .mockReturnValue(fakeContext() as never);
     expect(manager.captureFrame()).toBeInstanceOf(HTMLCanvasElement);
     getContext.mockRestore();
   });
