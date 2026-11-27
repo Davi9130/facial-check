@@ -33,6 +33,15 @@ describe("public entry points", () => {
   });
 });
 
+describe("facial-check/core engine exports", () => {
+  it("exposes FaceEngineError and FaceApiEngine", async () => {
+    const core = await import("../src/core/index");
+    expect(core.FaceApiEngine).toBeTypeOf("function");
+    expect(core.FaceEngineError).toBeTypeOf("function");
+    expect(core.FACE_API_MODEL_FILES.detector).toContain("tiny_face_detector_model-weights_manifest.json");
+  });
+});
+
 describe("camera exports", () => {
   it.each([
     ["facial-check", () => import("../src/index")],
