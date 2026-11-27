@@ -20,5 +20,5 @@
     "types": [],
     "jsx": "react-jsx"
   },
-  "include": ["src", "tests", "*.config.ts"]
+  "include": ["src", "tests", "bench", "*.config.ts"]
 }
