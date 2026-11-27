@@ -108,3 +108,12 @@ describe("session exports", () => {
     }
   });
 });
+
+describe("react hook exports", () => {
+  it("facial-check/react exposes the headless hooks", async () => {
+    const mod = await import("../src/react/index");
+    for (const name of ["useFacialCheck", "useFaceCamera", "useFaceDetection", "useLivenessChallenges"]) {
+      expect(mod).toHaveProperty(name);
+    }
+  });
+});
