@@ -6,3 +6,4 @@ export type { PadAnalysis, PadInput, PadProvider, PadResult, PadStatus } from ".
 export type * from "./camera.types";
 export type * from "./analysis.types";
 export type * from "./detector.types";
+export type * from "./challenge.types";

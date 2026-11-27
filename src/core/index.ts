@@ -21,3 +21,5 @@ export {
 export * from "../pad";
 export * from "../camera";
 export * from "../analysis";
+export { EventEmitter, type Listener } from "./EventEmitter";
+export * from "../challenges";
