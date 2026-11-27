@@ -1,0 +1,28 @@
+{
+  "name": "facial-check-example-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Demo app for facial-check (Vite + React). Uses only the public entry points of the package.",
+  "scripts": {
+    "sdk:build": "npm --prefix ../.. run build",
+    "setup": "node scripts/setup-models.mjs",
+    "dev": "vite",
+    "dev:https": "vite --mode https",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "facial-check": "file:../..",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.4.0"
+  }
+}

@@ -1,0 +1,269 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.45;
+  --border: color-mix(in srgb, currentColor 18%, transparent);
+  --muted: color-mix(in srgb, currentColor 60%, transparent);
+  --accent: #2563eb;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.app__engine,
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs__tab {
+  padding: 0.5rem 0.9rem;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs__tab[aria-current="page"] {
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+.app__description,
+.muted {
+  color: var(--muted);
+}
+
+.app__footer {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.panel {
+  min-width: 0;
+}
+
+.panel h2 {
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button,
+select {
+  font: inherit;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.instruction {
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.face-box {
+  position: absolute;
+  border: 2px solid #22c55e;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.face-box span {
+  position: absolute;
+  top: -1.4rem;
+  left: 0;
+  padding: 0 0.25rem;
+  font-size: 0.75rem;
+  color: #fff;
+  background: #22c55e;
+}
+
+.metrics {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.metrics th,
+.metrics td {
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.metrics th {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.photo {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.challenges {
+  padding-left: 1.2rem;
+}
+
+.challenges li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.4rem;
+}
+
+.challenges li[data-status="active"] {
+  font-weight: 600;
+}
+
+.challenges li[data-status="completed"] > span:first-child::after {
+  content: " ✓";
+  color: #16a34a;
+}
+
+.challenges li[data-status="failed"] > span:first-child::after,
+.challenges li[data-status="timeout"] > span:first-child::after {
+  content: " ✗";
+  color: #dc2626;
+}
+
+pre {
+  overflow: auto;
+  max-height: 320px;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.result dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+}
+
+.result dt {
+  color: var(--muted);
+}
+
+.result dd {
+  margin: 0;
+}
+
+/* Headless example: every style below is the app's own. */
+.headless {
+  position: relative;
+}
+
+.headless__camera {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  background: #000;
+}
+
+.headless__camera video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.headless__hud {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 0.1rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.badge[data-on] {
+  color: #fff;
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--border);
+}
+
+.bar > div {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s;
+}

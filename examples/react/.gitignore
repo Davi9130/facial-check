@@ -1,0 +1,7 @@
+node_modules/
+dist/
+# Downloaded/copied by `npm run setup` (not committed).
+public/models/
+public/mediapipe/
+# Local HTTPS certificates.
+certs/
