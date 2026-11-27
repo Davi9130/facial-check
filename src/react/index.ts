@@ -5,4 +5,5 @@
  * React is a peer dependency and is never bundled.
  * Symbols are added by the tasks that implement them.
  */
-export {};
+// TASK 11 — headless hooks
+export * from "./hooks";
