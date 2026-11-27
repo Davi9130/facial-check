@@ -4,5 +4,6 @@
  * Programmatic, framework-agnostic API (e.g. `FacialCheck`, public types).
  * Symbols are added by the tasks that implement them.
  */
-export {};
 export * from "./pad";
+export * from "./camera";
+export type * from "./types";
