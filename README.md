@@ -60,6 +60,36 @@ For a `<video>`, `detect()` never runs the model twice on the same frame (`curre
 
 The model weights (and MediaPipe's wasm runtime) are not part of the npm package. Your app serves them, by default from `/models` (and `/mediapipe/wasm`). See [`models/README.md`](./models/README.md) for the list of files, where to get them, and how to serve them.
 
+## Programmatic API
+
+```ts
+import { FacialCheck } from "facial-check";
+
+const facialCheck = new FacialCheck({
+  challenges: ["blink", "open-mouth", "turn-left", "turn-right"],
+  randomChallenges: true,
+  engine: "face-api", // or "mediapipe", or any FaceEngine
+  video: document.querySelector("video")!, // optional: preview element
+});
+
+facialCheck.on("challengeStarted", ({ challenge }) => showInstruction(challenge.type));
+facialCheck.on("progress", ({ percent }) => setProgress(percent));
+facialCheck.on("completed", (result) => {
+  result.challenges.passed; // presence challenges only
+  result.pad?.status; // PAD verdict, when a padDetector is configured
+});
+facialCheck.on("error", ({ error, fatal }) => console.error(error.code, fatal));
+
+await facialCheck.initialize(); // loads the engine models
+await facialCheck.start(); // opens the camera; challenges start on the first face
+facialCheck.stop(); // ends the session, releases the camera
+facialCheck.destroy(); // releases camera, engine and listeners
+```
+
+Status: `idle` → `initializing` → `ready` → `starting` → `waiting-face` → `running` → (`analyzing-pad`) → `completed` | `failed`; also `stopped`, `error` and `destroyed`. Each `start()` runs a new `FacialSession` with its own id and timestamps.
+
+Passing the challenges does not prove the face is real. Configure a `padDetector` (`PresentationAttackDetector`) for an anti-spoofing verdict; it is reported in `result.pad`, separately, and `NO_ATTACK_DETECTED` is not an absolute proof of authenticity.
+
 ## Privacy
 
 All processing runs locally in the browser. By default, the SDK does not send images or video anywhere, does not store them, and does not log biometric data. Detecting facial movements does **not** prove that the user is a real person. Presence challenges are kept separate from Presentation Attack Detection (PAD).

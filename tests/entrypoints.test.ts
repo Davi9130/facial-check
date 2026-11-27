@@ -96,3 +96,15 @@ describe("challenge exports", () => {
     expect(core.EventEmitter).toBeTypeOf("function");
   });
 });
+
+describe("session exports", () => {
+  it.each([
+    ["facial-check", () => import("../src/index")],
+    ["facial-check/core", () => import("../src/core/index")],
+  ])("%s exposes FacialCheck, FacialSession and FacialCheckError", async (_name, load) => {
+    const mod = await load();
+    for (const name of ["FacialCheck", "FacialSession", "FacialCheckError", "isFacialCheckError"]) {
+      expect(mod).toHaveProperty(name);
+    }
+  });
+});

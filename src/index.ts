@@ -9,3 +9,6 @@ export * from "./camera";
 export type * from "./types";
 export * from "./analysis";
 export * from "./challenges";
+export { FacialCheck } from "./core/FacialCheck";
+export { FacialSession, type FacialSessionDeps } from "./core/FacialSession";
+export { FacialCheckError, isFacialCheckError } from "./core/FacialCheckError";
