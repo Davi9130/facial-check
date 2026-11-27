@@ -7,3 +7,4 @@
 export * from "./pad";
 export * from "./camera";
 export type * from "./types";
+export * from "./analysis";

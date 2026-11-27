@@ -20,3 +20,4 @@ export {
 } from "../engines/MediaPipeEngine";
 export * from "../pad";
 export * from "../camera";
+export * from "../analysis";
