@@ -40,6 +40,12 @@ describe("facial-check/core engine exports", () => {
     expect(core.FaceEngineError).toBeTypeOf("function");
     expect(core.FACE_API_MODEL_FILES.detector).toContain("tiny_face_detector_model-weights_manifest.json");
   });
+
+  it("exposes MediaPipeEngine", async () => {
+    const core = await import("../src/core/index");
+    expect(core.MediaPipeEngine).toBeTypeOf("function");
+    expect(core.MEDIAPIPE_MODEL_FILES.model).toContain("face_landmarker.task");
+  });
 });
 
 describe("camera exports", () => {

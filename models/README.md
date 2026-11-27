@@ -17,6 +17,18 @@ The shards are about 190 KB (detector), 350 KB (full landmarks) and 80 KB (tiny 
 
 The files come from the `weights/` folder of the face-api.js repository (MIT license): https://github.com/justadudewhohacks/face-api.js/tree/master/weights. Use the files from that folder as they are. Each `*-weights_manifest.json` references its shard by file name, so keep both files of a model in the same directory and don't rename them.
 
+## MediaPipeEngine (@mediapipe/tasks-vision)
+
+| File | Where it goes | Option |
+| --- | --- | --- |
+| `face_landmarker.task` | e.g. `public/models/` | `modelAssetPath` (default `/models/face_landmarker.task`) |
+| `vision_wasm_internal.js`, `vision_wasm_internal.wasm`, `vision_wasm_module_internal.js`, `vision_wasm_module_internal.wasm` | e.g. `public/mediapipe/wasm/` | `wasmBaseUrl` (default `/mediapipe/wasm`) |
+
+- `face_landmarker.task` (about 3.6 MB, Apache 2.0 license) comes from Google's model storage: https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
+- The wasm files are in `node_modules/@mediapipe/tasks-vision/wasm/`. Copy the whole folder and keep the file names. Copy it again whenever you upgrade `@mediapipe/tasks-vision`, because the wasm files must match the JS version.
+
+The same list is exported as `MEDIAPIPE_MODEL_FILES` from `facial-check/core`.
+
 ## Serving the files
 
 1. Copy the files into your app's static folder, for example `public/models/` in Vite, Next.js or Create React App.
