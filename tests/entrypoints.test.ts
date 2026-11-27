@@ -32,3 +32,14 @@ describe("public entry points", () => {
     expect(pkg.dependencies["face-api.js"]).toBe("0.22.2");
   });
 });
+
+describe("camera exports", () => {
+  it.each([
+    ["facial-check", () => import("../src/index")],
+    ["facial-check/core", () => import("../src/core/index")],
+  ])("%s exposes CameraManager and CameraError", async (_name, load) => {
+    const mod = await load();
+    expect(mod).toHaveProperty("CameraManager");
+    expect(mod).toHaveProperty("CameraError");
+  });
+});
